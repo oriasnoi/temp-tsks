@@ -59,5 +59,13 @@ resource "google_compute_instance" "default" {
     #!/bin/bash
     sudo apt update
     sudo apt install -y postgresql
+
+    PG_VERSION=$(psql -V | awk '{print $3}' | cut -d. -f1,2)
+    CONF_DIR="/etc/postgresql/$PG_VERSION/main"
+
+    echo "listen_addresses = '*'" >> $CONF_DIR/postgresql.conf
+    echo "host all all 0.0.0.0/0 md5" >> $CONF_DIR/pg_hba.conf
+
+    systemctl restart postgresql
   EOF
 }
