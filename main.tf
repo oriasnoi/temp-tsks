@@ -14,7 +14,7 @@ resource "google_compute_firewall" "postgres_firewall" {
 
   allow {
     protocol = "tcp"
-    ports    = ["5432"]
+    ports    = ["5432", "5433"]
   }
 
   source_ranges = ["0.0.0.0/0"]
