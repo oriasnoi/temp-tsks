@@ -39,7 +39,7 @@ resource "google_compute_instance" "default" {
   machine_type = "e2-micro"
   zone         = var.zone
 
-  tags = ["allow-postgres", "allow-ssh]
+  tags = ["allow-postgres", "allow-ssh"]
 
   boot_disk {
     initialize_params {
