@@ -21,12 +21,25 @@ resource "google_compute_firewall" "postgres_firewall" {
   target_tags   = ["allow-postgres"]
 }
 
+resource "google_compute_firewall" "ssh_firewall" {
+  name    = "allow-ssh"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["allow-ssh"]
+}
+
 resource "google_compute_instance" "default" {
   name         = "postgres-vm"
   machine_type = "e2-micro"
   zone         = var.zone
 
-  tags = ["allow-postgres"]
+  tags = ["allow-postgres", "allow-ssh]
 
   boot_disk {
     initialize_params {
