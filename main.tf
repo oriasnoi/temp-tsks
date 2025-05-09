@@ -17,7 +17,9 @@ resource "google_compute_firewall" "postgres_firewall" {
     ports    = ["5432", "5433"]
   }
 
+  priority = 1001
   source_ranges = ["0.0.0.0/0"]
+  destination_ranges = ["0.0.0.0/0"]
   target_tags   = ["allow-postgres"]
 }
 
